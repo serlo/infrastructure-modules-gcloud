@@ -11,7 +11,7 @@ resource "google_compute_address" "staticip_regional" {
 resource "google_container_cluster" "primary" {
   provider   = "google-beta"
   name       = "${var.clustername}"
-  zone       = "${var.zone}"
+  location   = "${var.location}"
   project    = "${var.project}"
   network    = google_compute_network.vpc_network.self_link
   subnetwork = google_compute_subnetwork.vpc_subnetwork.self_link
@@ -151,4 +151,12 @@ resource "google_compute_global_address" "private_ip_address" {
   address_type  = "INTERNAL"
   prefix_length = 16
   network       = "${google_compute_network.vpc_network.self_link}"
+}
+
+provider "google" {
+  version = "~> 2.18"
+}
+
+provider "google-beta" {
+  version = "~> 2.18"
 }

@@ -13,3 +13,7 @@ resource "google_storage_bucket_iam_binding" "dbdump_writer_binding" {
 
   members = ["serviceAccount:${google_service_account.dbdump_writer.email}"]
 }
+
+provider "google" {
+  version = "~> 2.18"
+}

@@ -71,3 +71,11 @@ resource "google_service_networking_connection" "private_vpc_connection" {
   service                 = "servicenetworking.googleapis.com"
   reserved_peering_ranges = ["${var.private_ip_address_range}"]
 }
+
+provider "google" {
+  version = "~> 2.18"
+}
+
+provider "google-beta" {
+  version = "~> 2.18"
+}

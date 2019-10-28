@@ -55,9 +55,9 @@ resource "google_sql_database_instance" "db" {
     }
 
     # switch query logging on
-    #    database_flags { 
-    #      name  = "general_log" 
-    #      value = "on" 
+    #    database_flags {
+    #      name  = "general_log"
+    #      value = "on"
     #    }
   }
 }
@@ -88,4 +88,12 @@ resource "google_service_networking_connection" "private_vpc_connection" {
   network                 = var.database_private_network
   service                 = "servicenetworking.googleapis.com"
   reserved_peering_ranges = ["${var.private_ip_address_range}"]
+}
+
+provider "google" {
+  version = "~> 2.18"
+}
+
+provider "google-beta" {
+  version = "~> 2.18"
 }

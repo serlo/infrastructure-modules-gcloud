@@ -9,8 +9,8 @@ variable "clustername" {
   description = "The name of the cluster."
 }
 
-variable "zone" {
-  description = "The zone that the cluster master and nodes should be created in. If specified, this cluster will be a zonal cluster."
+variable "location" {
+  description = "The location (region or zone) in which the cluster master will be created, as well as the default node location."
 }
 
 variable "region" {
@@ -29,6 +29,7 @@ variable "issue_client_certificate" {
 variable "logging_service" {
   default = "logging.googleapis.com"
 }
+
 variable "monitoring_service" {
   default = "monitoring.googleapis.com"
 }
