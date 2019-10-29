@@ -51,10 +51,6 @@ resource "google_container_cluster" "primary" {
     horizontal_pod_autoscaling {
       disabled = true
     }
-
-    kubernetes_dashboard {
-      disabled = true
-    }
   }
 
   node_pool {
