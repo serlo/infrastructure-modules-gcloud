@@ -16,7 +16,7 @@ resource "google_container_cluster" "primary" {
   network    = google_compute_network.vpc_network.self_link
   subnetwork = google_compute_subnetwork.vpc_subnetwork.self_link
   release_channel {
-    channel = "STABLE"
+    channel = "REGULAR"
   }
 
   ip_allocation_policy {
