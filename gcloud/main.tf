@@ -86,6 +86,58 @@ resource "google_container_cluster" "primary" {
   enable_legacy_abac = true
 }
 
+
+# Node health check
+resource "kubernetes_daemonset" "node_health" {
+  metadata {
+    name      = "node-health"
+    namespace = kubernetes_namespace.node_health_namespace.metadata.0.name
+
+    labels = {
+      app = "node-health"
+    }
+  }
+
+  spec {
+    selector {
+      match_labels = {
+        app = "node-health"
+      }
+    }
+
+    template {
+      metadata {
+        labels = {
+          app = "node-health"
+        }
+      }
+
+      spec {
+        container {
+          image             = "busybox:1.28"
+          name              = "node-health"
+          image_pull_policy = "IfNotPresent"
+          command           = ["sh", "-c", "tail -f /dev/null"]
+
+          liveness_probe {
+            exec {
+              command = ["sh", "-c", "nslookup kubernetes.default"]
+            }
+            period_seconds    = 30
+            failure_threshold = 1
+          }
+        }
+      }
+    }
+  }
+}
+
+resource "kubernetes_namespace" "node_health_namespace" {
+  metadata {
+    name = "node-health"
+  }
+}
+
 # Network
 resource "google_compute_network" "vpc_network" {
   name                    = "default-network"
