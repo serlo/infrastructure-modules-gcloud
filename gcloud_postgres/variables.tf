@@ -1,22 +1,23 @@
 variable "database_instance_name" {
-  description = "Name for kpi database instance in GCP."
+  description = "Name for database instance in GCP."
 }
 
-variable "database_name" {
-  description = "Name for kpi database in GCP."
+variable "database_names" {
+  type        = list(string)
+  description = "Name for databases in GCP."
 }
 
 variable "database_connection_name" {
-  description = "Name for kpi database connection in GCP."
+  description = "Name for database connection in GCP."
 }
 
 variable "database_region" {
-  description = "Region for kpi database."
+  description = "Region for database."
 }
 
 variable "database_tier" {
   default     = "db-f1-micro"
-  description = "Tier for kpi database. See https://cloud.google.com/sql/pricing#2nd-gen-pricing"
+  description = "Tier for database. See https://cloud.google.com/sql/pricing#2nd-gen-pricing"
 }
 
 variable "database_password_postgres" {
