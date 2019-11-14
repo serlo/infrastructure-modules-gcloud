@@ -59,7 +59,8 @@ resource "google_sql_user" "users_readonly" {
 }
 
 resource "google_sql_database" "database" {
-  name      = var.database_name
+  count     = length(var.database_names)
+  name      = var.database_names[count.index]
   instance  = google_sql_database_instance.db.name
   charset   = "UTF8"
   collation = "en_US.UTF8"
