@@ -4,7 +4,7 @@ resource "google_sql_database_instance" "db" {
   region           = var.database_region
 
   depends_on = [
-    "google_service_networking_connection.private_vpc_connection",
+    google_service_networking_connection.private_vpc_connection,
   ]
 
   lifecycle {
@@ -67,7 +67,7 @@ resource "google_sql_database" "database" {
 }
 
 resource "google_service_networking_connection" "private_vpc_connection" {
-  provider                = "google-beta"
+  provider                = google-beta
   network                 = var.database_private_network
   service                 = "servicenetworking.googleapis.com"
   reserved_peering_ranges = ["${var.private_ip_address_range}"]

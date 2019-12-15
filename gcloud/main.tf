@@ -5,14 +5,14 @@ data "google_client_config" "default" {}
 
 resource "google_compute_address" "staticip_regional" {
   name   = "${var.clustername}-staticip-regional"
-  region = "${var.region}"
+  region = var.region
 }
 
 resource "google_container_cluster" "primary" {
-  provider   = "google-beta"
-  name       = "${var.clustername}"
-  location   = "${var.location}"
-  project    = "${var.project}"
+  provider   = google-beta
+  name       = var.clustername
+  location   = var.location
+  project    = var.project
   network    = google_compute_network.vpc_network.self_link
   subnetwork = google_compute_subnetwork.vpc_subnetwork.self_link
   release_channel {
@@ -70,7 +70,7 @@ resource "google_container_cluster" "primary" {
     node_config {
       preemptible     = false
       service_account = google_service_account.service_account.email
-      machine_type    = "${var.machine_type}"
+      machine_type    = var.machine_type
 
       oauth_scopes = [
         "https://www.googleapis.com/auth/compute",
@@ -158,7 +158,6 @@ resource "google_compute_subnetwork" "vpc_subnetwork" {
     range_name    = "public-services"
     ip_cidr_range = cidrsubnet("10.2.0.0/16", 4, 0)
   }
-  enable_flow_logs = false
 }
 
 # service account
@@ -193,12 +192,12 @@ resource "google_project_iam_member" "service_account-stackdriver_resourceMetada
 }
 
 resource "google_compute_global_address" "private_ip_address" {
-  provider      = "google-beta"
+  provider      = google-beta
   name          = "private-ip-address"
   purpose       = "VPC_PEERING"
   address_type  = "INTERNAL"
   prefix_length = 16
-  network       = "${google_compute_network.vpc_network.self_link}"
+  network       = google_compute_network.vpc_network.self_link
 }
 
 provider "google" {
@@ -207,4 +206,8 @@ provider "google" {
 
 provider "google-beta" {
   version = "~> 2.18"
+}
+
+provider "kubernetes" {
+  version = "~> 1.8"
 }

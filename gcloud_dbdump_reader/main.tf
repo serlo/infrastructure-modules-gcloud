@@ -4,7 +4,7 @@ resource "google_service_account" "dbdump_reader" {
 }
 
 resource "google_service_account_key" "dbdump_reader_key" {
-  service_account_id = "${google_service_account.dbdump_reader.name}"
+  service_account_id = google_service_account.dbdump_reader.name
 }
 
 resource "google_storage_bucket_iam_binding" "dbdump_reader_binding" {

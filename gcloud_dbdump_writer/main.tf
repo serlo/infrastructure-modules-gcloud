@@ -4,7 +4,7 @@ resource "google_service_account" "dbdump_writer" {
 }
 
 resource "google_service_account_key" "dbdump_writer_key" {
-  service_account_id = "${google_service_account.dbdump_writer.name}"
+  service_account_id = google_service_account.dbdump_writer.name
 }
 
 resource "google_storage_bucket_iam_binding" "dbdump_writer_binding" {
