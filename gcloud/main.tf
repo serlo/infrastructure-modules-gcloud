@@ -23,7 +23,7 @@ resource "google_container_cluster" "primary" {
     #Pod IPs
     cluster_secondary_range_name = google_compute_subnetwork.vpc_subnetwork.secondary_ip_range[0].range_name
     #Service IPs
-    services_secondary_range_name = google_compute_subnetwork.vpc_subnetwork.secondary_ip_range[0].range_name
+    services_secondary_range_name = google_compute_subnetwork.vpc_subnetwork.secondary_ip_range[1].range_name
   }
 
   # Setting an empty username and password explicitly disables basic auth
@@ -153,10 +153,14 @@ resource "google_compute_subnetwork" "vpc_subnetwork" {
   region                   = var.region
   private_ip_google_access = true
   network                  = google_compute_network.vpc_network.self_link
-  ip_cidr_range            = cidrsubnet("10.1.0.0/16", 4, 0)
+  ip_cidr_range            = "10.0.0.0/16"
   secondary_ip_range {
-    range_name    = "public-services"
-    ip_cidr_range = cidrsubnet("10.2.0.0/16", 4, 0)
+    range_name    = "pods"
+    ip_cidr_range = "10.1.0.0/16"
+  }
+  secondary_ip_range {
+    range_name    = "services"
+    ip_cidr_range = "10.2.0.0/16"
   }
 }
 
