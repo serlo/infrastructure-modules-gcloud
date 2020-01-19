@@ -53,8 +53,3 @@ variable "database_private_network" {
   description = "The name or self_link of the Google Compute Engine private network to which the database is connected."
   type        = string
 }
-
-variable "private_ip_address_range" {
-  description = "Name of private ip address range from gcloud"
-  type        = string
-}

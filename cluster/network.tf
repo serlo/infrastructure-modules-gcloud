@@ -31,6 +31,33 @@ resource "google_compute_subnetwork" "cluster" {
   }
 }
 
+# Configures private service access
+#
+# see https://www.terraform.io/docs/providers/google/r/service_networking_connection.html
+# see https://cloud.google.com/vpc/docs/configure-private-services-access
+resource "google_service_networking_connection" "private_vpc_connection" {
+  provider                = google-beta
+  network                 = google_compute_network.cluster.self_link
+  service                 = "servicenetworking.googleapis.com"
+  reserved_peering_ranges = [google_compute_global_address.reserved_peering_range.name]
+}
+
+# Reserves an internal IP address range that is used for VPC Network Peering to connect to Cloud SQL instances
+#
+# see https://www.terraform.io/docs/providers/google/r/compute_global_address.html
+# see https://cloud.google.com/vpc/docs/vpc-peering
+resource "google_compute_global_address" "reserved_peering_range" {
+  name = "${var.name}-peering"
+
+  # 10.8.0.0 - 10.11.255.255
+  address       = "10.8.0.0"
+  prefix_length = 14
+
+  address_type = "INTERNAL"
+  purpose      = "VPC_PEERING"
+  network      = google_compute_network.cluster.self_link
+}
+
 output "network" {
   description = "VCP network used by the cluster"
   value       = google_compute_network.cluster.self_link

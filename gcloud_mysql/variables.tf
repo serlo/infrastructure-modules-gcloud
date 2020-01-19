@@ -48,11 +48,6 @@ variable "database_password_readonly" {
   description = "Password for readonly database user."
 }
 
-variable "private_ip_address_range" {
-  type        = string
-  description = "Name of private ip address range from gcloud"
-}
-
 variable "authorized_networks" {
   type        = list(object({ name = string, value = string }))
   default     = []

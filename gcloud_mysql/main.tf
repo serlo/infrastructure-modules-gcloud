@@ -7,10 +7,6 @@ resource "google_sql_database_instance" "db" {
     prevent_destroy = true
   }
 
-  depends_on = [
-    google_service_networking_connection.private_vpc_connection,
-  ]
-
   settings {
     tier              = var.database_tier
     activation_policy = "ALWAYS"
@@ -81,13 +77,6 @@ resource "google_sql_database" "serlo_database" {
   instance  = google_sql_database_instance.db.name
   charset   = "utf8"
   collation = "utf8_general_ci"
-}
-
-resource "google_service_networking_connection" "private_vpc_connection" {
-  provider                = google-beta
-  network                 = var.database_private_network
-  service                 = "servicenetworking.googleapis.com"
-  reserved_peering_ranges = ["${var.private_ip_address_range}"]
 }
 
 provider "google" {

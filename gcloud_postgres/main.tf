@@ -3,10 +3,6 @@ resource "google_sql_database_instance" "db" {
   database_version = "POSTGRES_9_6"
   region           = var.database_region
 
-  depends_on = [
-    google_service_networking_connection.private_vpc_connection,
-  ]
-
   lifecycle {
     prevent_destroy = false
   }
@@ -64,13 +60,6 @@ resource "google_sql_database" "database" {
   instance  = google_sql_database_instance.db.name
   charset   = "UTF8"
   collation = "en_US.UTF8"
-}
-
-resource "google_service_networking_connection" "private_vpc_connection" {
-  provider                = google-beta
-  network                 = var.database_private_network
-  service                 = "servicenetworking.googleapis.com"
-  reserved_peering_ranges = ["${var.private_ip_address_range}"]
 }
 
 provider "google" {
