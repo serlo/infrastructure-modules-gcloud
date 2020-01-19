@@ -9,8 +9,8 @@ resource "google_container_node_pool" "cluster" {
   initial_node_count = var.node_pool.initial_node_count
 
   node_config {
-    machine_type = var.node_pool.machine_type
-    preemptible  = true
+    machine_type    = var.node_pool.machine_type
+    preemptible     = true
     service_account = google_service_account.cluster.email
 
     metadata = {
@@ -44,10 +44,4 @@ variable "node_pool" {
     min_node_count     = number
     max_node_count     = number
   })
-}
-
-# Expose the node pool resource so that k8s modules can explicitly depend on
-output "node_pool" {
-  description = "Node pool used by the cluster"
-  value = google_container_node_pool.cluster
 }

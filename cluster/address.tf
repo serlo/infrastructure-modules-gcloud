@@ -11,5 +11,5 @@ resource "google_compute_address" "cluster" {
 # see https://www.terraform.io/docs/providers/google/r/compute_address.html#address-1
 output "address" {
   description = "External IP address that may be used by services that are externally accessible"
-  value = google_compute_address.cluster.address
+  value       = google_compute_address.cluster.address
 }

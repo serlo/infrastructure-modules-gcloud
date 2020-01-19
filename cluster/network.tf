@@ -16,7 +16,7 @@ resource "google_compute_subnetwork" "cluster" {
   network                  = google_compute_network.cluster.self_link
 
   # IP address range for nodes, must not overlap with the ranges for pods or services
-  ip_cidr_range            = "10.0.0.0/20" # 10.0.0.0 - 10.0.15.255
+  ip_cidr_range = "10.0.0.0/20" # 10.0.0.0 - 10.0.15.255
 
   # IP adress range for pods, must not overlap with the ranges for nodes or services
   secondary_ip_range {
@@ -33,5 +33,5 @@ resource "google_compute_subnetwork" "cluster" {
 
 output "network" {
   description = "VCP network used by the cluster"
-  value = google_compute_network.cluster.self_link
+  value       = google_compute_network.cluster.self_link
 }

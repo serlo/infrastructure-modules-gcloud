@@ -1,6 +1,6 @@
 variable "name" {
   description = "Name of the cluster and its managed resources"
-  type = string
+  type        = string
 }
 
 variable "location" {

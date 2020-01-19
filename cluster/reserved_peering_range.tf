@@ -12,5 +12,5 @@ resource "google_compute_global_address" "reserved_peering_range" {
 
 output "reserved_peering_range" {
   description = "Reserved internal IP address range for VCP Network Peering"
-  value = google_compute_global_address.reserved_peering_range
+  value       = google_compute_global_address.reserved_peering_range
 }

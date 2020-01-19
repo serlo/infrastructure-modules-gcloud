@@ -52,8 +52,8 @@ resource "google_container_cluster" "cluster" {
 # see https://www.terraform.io/docs/providers/google/r/container_cluster.html#master_auth-0-cluster_ca_certificate
 output "auth" {
   description = "Base64 encoded authentication information for accessing the k8s cluster"
-  value = google_container_cluster.cluster.master_auth[0]
-  sensitive = true
+  value       = google_container_cluster.cluster.master_auth[0]
+  sensitive   = true
 }
 
 
@@ -62,5 +62,5 @@ output "auth" {
 # see https://www.terraform.io/docs/providers/google/r/container_cluster.html#endpoint
 output "endpoint" {
   description = "The IP address of the cluster's k8s master"
-  value = google_container_cluster.cluster.endpoint
+  value       = google_container_cluster.cluster.endpoint
 }
