@@ -78,11 +78,3 @@ resource "google_sql_database" "serlo_database" {
   charset   = "utf8"
   collation = "utf8_general_ci"
 }
-
-provider "google" {
-  version = "~> 2.18"
-}
-
-provider "google-beta" {
-  version = "~> 2.18"
-}

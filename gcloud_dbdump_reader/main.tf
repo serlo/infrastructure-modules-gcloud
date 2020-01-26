@@ -12,7 +12,3 @@ resource "google_storage_bucket_iam_member" "dbdump_reader_binding" {
   role   = "roles/storage.objectViewer"
   member = "serviceAccount:${google_service_account.dbdump_reader.email}"
 }
-
-provider "google" {
-  version = "~> 2.18"
-}

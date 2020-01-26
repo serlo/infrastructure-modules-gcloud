@@ -61,11 +61,3 @@ resource "google_sql_database" "database" {
   charset   = "UTF8"
   collation = "en_US.UTF8"
 }
-
-provider "google" {
-  version = "~> 2.18"
-}
-
-provider "google-beta" {
-  version = "~> 2.18"
-}
