@@ -42,6 +42,11 @@ resource "google_container_cluster" "cluster" {
   release_channel {
     channel = "STABLE"
   }
+
+  # Makes sure that the default node pool uses our custom Service Account, too
+  node_config {
+    service_account = google_service_account.cluster.email
+  }
 }
 
 

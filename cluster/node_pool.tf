@@ -10,7 +10,7 @@ resource "google_container_node_pool" "cluster" {
 
   node_config {
     machine_type    = var.node_pool.machine_type
-    preemptible     = true
+    preemptible     = var.node_pool.preemptible
     service_account = google_service_account.cluster.email
 
     metadata = {
