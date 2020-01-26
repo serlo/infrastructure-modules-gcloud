@@ -47,6 +47,13 @@ resource "google_container_cluster" "cluster" {
   node_config {
     service_account = google_service_account.cluster.email
   }
+
+  # Don't recreate cluster when node config of default node pool changes since the default node pool is removed anyways
+  lifecycle {
+    ignore_changes = [
+      node_config
+    ]
+  }
 }
 
 
