@@ -2,6 +2,11 @@ variable "database_instance_name" {
   description = "Name for athene2 database instance in GCP."
 }
 
+variable "database_version" {
+  type        = string
+  description = "Database version to use"
+}
+
 variable "database_name" {
   description = "Name for athene2 database in GCP."
 }

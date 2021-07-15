@@ -1,6 +1,6 @@
 resource "google_sql_database_instance" "db" {
   name             = var.database_instance_name
-  database_version = "MYSQL_5_6"
+  database_version = var.database_version
   region           = var.database_region
 
   lifecycle {
