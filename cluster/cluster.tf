@@ -24,15 +24,6 @@ resource "google_container_cluster" "cluster" {
     services_secondary_range_name = google_compute_subnetwork.cluster.secondary_ip_range[1].range_name
   }
 
-  master_auth {
-    client_certificate_config {
-      issue_client_certificate = true
-    }
-
-    username = ""
-    password = ""
-  }
-
   maintenance_policy {
     daily_maintenance_window {
       start_time = "01:00"
