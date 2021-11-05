@@ -3,6 +3,11 @@ variable "name" {
   type        = string
 }
 
+variable "project" {
+  description = "The Google Cloud project"
+  type        = string
+}
+
 variable "location" {
   description = "The location (region or zone) in which the cluster's master will be created, as well as the default node location"
   type        = string

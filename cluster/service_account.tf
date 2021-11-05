@@ -8,21 +8,25 @@ resource "google_service_account" "cluster" {
 }
 
 resource "google_project_iam_member" "cluster_logWriter" {
-  role   = "roles/logging.logWriter"
-  member = "serviceAccount:${google_service_account.cluster.email}"
+  project = var.project
+  role    = "roles/logging.logWriter"
+  member  = "serviceAccount:${google_service_account.cluster.email}"
 }
 
 resource "google_project_iam_member" "cluster_metricWriter" {
-  role   = "roles/monitoring.metricWriter"
-  member = "serviceAccount:${google_service_account.cluster.email}"
+  project = var.project
+  role    = "roles/monitoring.metricWriter"
+  member  = "serviceAccount:${google_service_account.cluster.email}"
 }
 
 resource "google_project_iam_member" "cluster_monitoringViewer" {
-  role   = "roles/monitoring.viewer"
-  member = "serviceAccount:${google_service_account.cluster.email}"
+  project = var.project
+  role    = "roles/monitoring.viewer"
+  member  = "serviceAccount:${google_service_account.cluster.email}"
 }
 
 resource "google_project_iam_member" "cluster_stackdriver_resourceMetadata_writer" {
-  role   = "roles/stackdriver.resourceMetadata.writer"
-  member = "serviceAccount:${google_service_account.cluster.email}"
+  project = var.project
+  role    = "roles/stackdriver.resourceMetadata.writer"
+  member  = "serviceAccount:${google_service_account.cluster.email}"
 }
