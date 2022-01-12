@@ -1,16 +1,29 @@
+variable "node_pools" {
+  description = "Node pool configuration"
+  type = map(object({
+    machine_type       = string
+    preemptible        = bool
+    initial_node_count = number
+    min_node_count     = number
+    max_node_count     = number
+  }))
+}
+
 # Manages the node pool used by the Google Kubernetes Engine (GKE) cluster
 #
 # see https://www.terraform.io/docs/providers/google/r/container_node_pool.html
 # see https://www.terraform.io/docs/providers/google/r/container_cluster.html#node_pool
 resource "google_container_node_pool" "cluster" {
-  name               = var.name
+  for_each = var.node_pools
+
+  name               = "${var.name}-${each.key}"
   location           = var.location
   cluster            = google_container_cluster.cluster.name
-  initial_node_count = var.node_pool.initial_node_count
+  initial_node_count = each.value.initial_node_count
 
   node_config {
-    machine_type    = var.node_pool.machine_type
-    preemptible     = var.node_pool.preemptible
+    machine_type    = each.value.machine_type
+    preemptible     = each.value.preemptible
     service_account = google_service_account.cluster.email
 
     metadata = {
@@ -25,8 +38,8 @@ resource "google_container_node_pool" "cluster" {
   }
 
   autoscaling {
-    min_node_count = var.node_pool.min_node_count
-    max_node_count = var.node_pool.max_node_count
+    min_node_count = each.value.min_node_count
+    max_node_count = each.value.max_node_count
   }
 
   management {
@@ -35,13 +48,8 @@ resource "google_container_node_pool" "cluster" {
   }
 }
 
-variable "node_pool" {
-  description = "Node pool configuration"
-  type = object({
-    machine_type       = string
-    preemptible        = bool
-    initial_node_count = number
-    min_node_count     = number
-    max_node_count     = number
-  })
+output "node_pools" {
+  value = {
+    for k, v in var.node_pools : k => "${var.name}-${k}"
+  }
 }
