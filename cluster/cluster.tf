@@ -2,8 +2,6 @@
 #
 # see https://www.terraform.io/docs/providers/google/r/container_cluster.html
 resource "google_container_cluster" "cluster" {
-  provider = google-beta
-
   name     = var.name
   location = var.location
 

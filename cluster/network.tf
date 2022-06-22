@@ -36,7 +36,6 @@ resource "google_compute_subnetwork" "cluster" {
 # see https://www.terraform.io/docs/providers/google/r/service_networking_connection.html
 # see https://cloud.google.com/vpc/docs/configure-private-services-access
 resource "google_service_networking_connection" "private_vpc_connection" {
-  provider                = google-beta
   network                 = google_compute_network.cluster.self_link
   service                 = "servicenetworking.googleapis.com"
   reserved_peering_ranges = [google_compute_global_address.reserved_peering_range.name]
