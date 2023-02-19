@@ -17,10 +17,10 @@ resource "google_sql_database_instance" "db" {
       private_network = var.database_private_network
     }
 
-    #backup_configuration {
-    #  binary_log_enabled = true
-    #  enabled            = true
-    #}
+    backup_configuration {
+      binary_log_enabled = true
+      enabled            = true
+    }
 
     maintenance_window {
       day  = 6
