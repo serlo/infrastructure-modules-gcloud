@@ -18,8 +18,8 @@ resource "google_sql_database_instance" "db" {
     }
 
     backup_configuration {
-      enabled            = true
-      location           = "eu"
+      enabled  = true
+      location = "eu"
     }
 
     maintenance_window {
