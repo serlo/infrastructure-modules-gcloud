@@ -18,7 +18,6 @@ resource "google_sql_database_instance" "db" {
     }
 
     backup_configuration {
-      binary_log_enabled = true
       enabled            = true
       location           = "eu"
     }
