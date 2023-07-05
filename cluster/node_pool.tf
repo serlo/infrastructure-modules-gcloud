@@ -6,6 +6,7 @@ variable "node_pools" {
     initial_node_count = number
     min_node_count     = number
     max_node_count     = number
+    location_policy    = string
   }))
 }
 
@@ -38,8 +39,9 @@ resource "google_container_node_pool" "cluster" {
   }
 
   autoscaling {
-    min_node_count = each.value.min_node_count
-    max_node_count = each.value.max_node_count
+    min_node_count  = each.value.min_node_count
+    max_node_count  = each.value.max_node_count
+    location_policy = each.value.location_policy
   }
 
   management {
