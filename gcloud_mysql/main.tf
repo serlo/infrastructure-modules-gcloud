@@ -75,6 +75,6 @@ resource "google_sql_user" "readonly_user" {
 resource "google_sql_database" "serlo_database" {
   name      = var.database_name
   instance  = google_sql_database_instance.db.name
-  charset   = "utf8"
-  collation = "utf8_general_ci"
+  charset   = "utf8mb4"
+  collation = "utf8mb4_unicode_520_ci"
 }
